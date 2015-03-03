@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
 
   # Hosts
   config.vm.hostname = "www.wordpress-workflow.local"
-  config.hostsupdater.aliases = ["wordpress-workflow.local", "wordpress.local"]
+  config.hostsupdater.aliases = ["wordpress-workflow.local", "clubpremier.local"]
 
 
   # Shared folders.
