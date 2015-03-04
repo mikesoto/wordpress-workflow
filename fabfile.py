@@ -101,6 +101,7 @@ def bootstrap():
     '''
     Creates the database with test data, activates apache rewrite module, and starts wordpress install
     '''
+    require("wordpress_dir")
     require('env')
     # Crea la base de datos
     run('''
@@ -112,6 +113,17 @@ def bootstrap():
            env.dbuser,
            env.dbpassword,
            env.dbhost
+        ))
+    # Import fixtures.sql file if env is local
+    if(env.env == 'local'):
+        with cd(env.site_dir):
+            run('''
+            echo "mysql -u{0} -p{1} {2} < database/fixtures.sql"
+            '''.
+        format(
+           env.dbuser,
+           env.dbpassword,
+           env.dbname
         ))
     # Activa modulo de apache
     run('a2enmod rewrite')
