@@ -8,19 +8,24 @@ Vagrant.configure("2") do |config|
   config.omnibus.chef_version = '11.16' 
 
   # Port fowarding 
-  config.vm.network :forwarded_port, guest: 8000, host: 8000
+  config.vm.network :forwarded_port, guest: 8888, host: 8888
   
   # Private IP  
-  config.vm.network :private_network, ip: "192.168.33.77"
+  config.vm.network :private_network, ip: "192.168.33.76"
 
   # Hosts
   config.vm.hostname = "www.wordpress-workflow.local"
-  config.hostsupdater.aliases = ["wordpress-workflow.local", "wordpress.local"]
+  config.hostsupdater.aliases = ["wordpress-workflow.local", "manoderecha.local"]
 
 
   # Shared folders.
   config.vm.synced_folder "src", "/home/vagrant/wordpress-workflow"
 
+  # Provider
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024
+    v.cpus = 2
+  end
 
   # Provision
   config.vm.provision :chef_solo do |chef|
